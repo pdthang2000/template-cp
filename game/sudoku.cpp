@@ -7,6 +7,31 @@ ll total_z, cur_box;
 bool stt = false;
 map<pair<ll, ll>, ll> mpp;
 
+bool isValid(vector<vector<char>>& board, int i, int j, char value){
+	int boxRow = i / 3 * 3;
+	int boxCol = j / 3 * 3;
+	for (int k = 0; k < 9; k++) {
+		if (board[i][k] == value) return false;
+		if (board[k][j] == value) return false;
+		if (board[k / 3 + boxRow][k % 3 + boxCol] == value) return false;
+	}
+	return true;
+}
+bool isValidSudoku(vector<vector<char>>& board) {
+	for (int i=0; i < 9; i++) {
+		for (int j = 0; j < 9; j++) {
+			if (board[i][j] == '.') continue;
+
+			char value = board[i][j];
+			
+			board[i][j] = '.';
+			if (!isValid(board, i, j, value)) return false;
+			board[i][j] = value;
+		}
+	}
+	return true;
+}
+
 void init() {
     ll cnt = 1;
     for (ll i = 1; i <= 3; ++i) {
