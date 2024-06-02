@@ -23,8 +23,11 @@ vector<ll> dijkstra(ll start_point, ll n, vector<pair<ll, ll>> g[]) {
 	vector<bool> used(n + 1, 0);
 	vector<ll> d(n + 1, LLONG_MAX);
 	priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, cmp> Q;
+	
 	d[start_point] = 0;
+
 	Q.push({start_point, d[start_point]});
+	
 	while (Q.size()) {
 		ll cur = Q.top().first;
 		Q.pop();
