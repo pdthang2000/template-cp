@@ -1,3 +1,4 @@
 *.bin
 *.cph
 .vscode
+./others/a.out
