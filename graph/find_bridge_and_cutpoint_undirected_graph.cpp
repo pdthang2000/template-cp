@@ -78,3 +78,33 @@ int main() {
 
     return 0;
 }
+/*
+Input:
+12 14
+1 2
+2 3
+3 4
+4 1
+4 5
+5 6
+6 7
+7 8
+8 9
+9 6
+8 10
+10 11
+11 12
+12 10
+
+Output:
+Articulation points in the graph:
+4
+5
+6
+8
+10
+Bridges in the graph:
+8 - 10
+5 - 6
+4 - 5
+*/
