@@ -2,3 +2,4 @@
 *.cph
 .vscode
 ./others/a.out
+.DS_Store

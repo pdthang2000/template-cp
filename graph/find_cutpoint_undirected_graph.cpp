@@ -18,15 +18,16 @@ int timer;
 void dfs(int v, int p = -1) {
     visited[v] = true;
     time_in[v] = lowest_time[v] = timer++;
-    int children=0;
+    int children = 0;
     for (int to : adj[v]) {
         if (to == p) continue;
+
         if (visited[to]) {
             lowest_time[v] = min(lowest_time[v], time_in[to]);
         } else {
             dfs(to, v);
             lowest_time[v] = min(lowest_time[v], lowest_time[to]);
-            if (lowest_time[to] >= time_in[v] && p!=-1) {
+            if (lowest_time[to] >= time_in[v] && p != -1) {
                 is_cutpoint[v] = true;   
             }
             ++children;
