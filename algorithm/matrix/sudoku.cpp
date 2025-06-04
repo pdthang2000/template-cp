@@ -1,4 +1,5 @@
-#include <bits/stdc++.h>
+// #include <bits/stdc++.h>
+#include "../../others/stdc++.h"
 using namespace std;
 #define ll long long
 #define see(x) cout << #x << " = " << x << ' ';
@@ -156,12 +157,7 @@ void solve() {
     };
     SudokuSolver sudokuSolver(board, '.');
     sudokuSolver.solveSudoku();
-    board = sudokuSolver.board;
-    for (auto i: board) {
-        for (auto j: i) {
-            cout << j << ' ';
-        } qq;
-    }
+    sudokuSolver.printBoard();
 }
 
 int main() {
