@@ -1,32 +1,71 @@
-#include<bits/stdc++.h>
-using namespace std;
+// #include <bits/stdc++.h>
+#include "stdc++.h"
 #define ll long long
-const ll MAX_N = 200100;
-ll n, q, t;
-ll fw[MAX_N];
+using namespace std;
+#define qq cout << '\n';
+// Fenwick (BIT) supporting point updates & prefix sums
+struct FenwickTree {
+    ll n;
+    vector<int> bit;
+    FenwickTree(ll _n): n(_n), bit(n + 1, 0) {}
 
-void update(ll pos, ll val) {
-    while (pos <= MAX_N) {
-        fw[pos] += val;
-        pos += (pos & -pos);
+    // add v at index i
+    void update(ll i, ll v) {
+        while (i <= n) {
+            bit[i] += v;
+            i += i & (-i);
+        }
+        // for (; i <= n; i += i&-i) bit[i] += v;
     }
-}
-
-ll get(ll pos) {
-    ll sum = 0;
-    while (pos) {
-        sum += fw[pos];
-        pos -= (pos & -pos);
+    // sum of [1..i]
+    ll query(ll i) const {
+        ll sum = 0;
+        while (i) {
+            sum += bit[i];
+            i -= i & (-i);
+        }
+        // for (; i > 0; i -= i&-i) s += bit[i];
+        return sum;
     }
-    return sum;
-}
+    // In other contexts it’s referred to as:
+    //   “BIT lower_bound on prefix sums”
+    //   “Order‐statistics with a Fenwick tree”
+    //   “Binary lifting on a binary indexed tree”
+    // find smallest id such that query(id) >= k
+    ll findByOrder(ll k) const {
+        ll id = 0;
+        // highest power of two ≤ n:
+        ll mask = 1LL << (63 - __builtin_clzll(n));
+        // ll mask = 1;
+        // while ((mask << 1) <= n) {
+        //     mask <<= 1;
+        // }
+        for (; mask; mask >>= 1) {
+            ll next = id + mask;
+            if (next <= n && bit[next] < k) {
+                id = next;
+                k  = k - bit[next];
+            }
+        }
+        return id + 1;
+    }
+};
 
-int main() {
-    ios::sync_with_stdio(0);cin.tie(0);
-    update(1, 1);
-    update(5, 3);
-    update(7, -2);
-    for (ll i = 1; i < 10; ++i) {
-        cout << get(i) << ' ';
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    FenwickTree fw(10);
+    for (int i = 1; i <= 10; ++i) {
+        if (i & 1) {
+            fw.update(i, 1);
+        } 
+    }
+    for (int i = 1; i <= 10; ++i) {
+        cout << fw.query(i) << ' ';
+    } qq;
+
+    for (int i = 1; i <= 5; ++i) {
+        cout << fw.findByOrder(i) << ' ';
     }
 }
