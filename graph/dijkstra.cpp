@@ -1,4 +1,5 @@
-#include<bits/stdc++.h>
+#include "stdc++.h"
+// #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
 #define see(x) cout << #x << " = " << x << ' ';
@@ -13,6 +14,7 @@ const ll H = 998244353;
 const ll MAX_CHAR = 26;
 ll n, m, x, y, z;
  
+// lower second go to the top
 struct cmp {
 	bool operator() (pair<ll, ll> a, pair<ll, ll> b) {
 		return a.second > b.second;
@@ -33,10 +35,12 @@ vector<ll> dijkstra(ll start_point, ll n, vector<pair<ll, ll>> g[]) {
 		Q.pop();
 		if (used[cur]) continue;	
 		used[cur] = 1;
-		for (auto i : g[cur]) {
-			if (d[i.first] > d[cur] + i.second) {
-				d[i.first] = d[cur] + i.second;
-				Q.push({i.first, d[i.first]});
+		for (auto i: g[cur]) {
+            ll destination = i.first;
+            ll distance = i.second;
+			if (d[destination] > d[cur] + distance) {
+				d[destination] = d[cur] + distance;
+				Q.push({destination, d[destination]});
 			}
 		}
 	}
