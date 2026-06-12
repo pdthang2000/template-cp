@@ -2,7 +2,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
-
+ll const int MAX_N = 100005;
 ll parent[MAX_N], sz[MAX_N];
 
 ll find_set(ll x) {
